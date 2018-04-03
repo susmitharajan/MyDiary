@@ -3,6 +3,8 @@ package com.example.susmitharajan.mydiary;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,15 +25,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -40,6 +33,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        Fragment fragment = new MyNoteFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_main, fragment);
+        ft.commit();
     }
 
     @Override
@@ -74,12 +73,58 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    void displaySelectedScreen(int id){
+        Fragment fragment= null;
+        switch (id){
+            case R.id.nav_codelock:
+                fragment = new CodelockFragment();
+                break;
+            case R.id.nav_colors:
+                fragment = new ColorsFragment();
+                break;
+            case R.id.nav_reminder:
+                fragment = new ReminderFragment();
+                break;
+            case R.id.nav_recommend:
+                fragment = new RecommendFragment();
+                break;
+            case R.id.nav_rate:
+                fragment = new RateFragment();
+                break;
+            case R.id.nav_visit:
+                fragment = new VisitFragment();
+                break;
+            case R.id.nav_feedback:
+                fragment = new FeedbackFragment();
+                break;
+            case R.id.nav_export:
+                fragment = new ExportFragment();
+                break;
+            case R.id.nav_help:
+                fragment = new HelpFragment();
+                break;
+            case R.id.nav_about:
+                fragment = new AboutFragment();
+                break;
+            case R.id.nav_mynote:
+                fragment = new MyNoteFragment();
+                break;
+        }
+
+        if(fragment != null){
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_main, fragment);
+            ft.commit();
+        }
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        displaySelectedScreen(id);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

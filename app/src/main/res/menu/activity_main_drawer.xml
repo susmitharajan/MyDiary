@@ -5,6 +5,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_mynote"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="My Notes" />
+        <item
             android:id="@+id/nav_codelock"
             android:icon="@drawable/ic_menu_camera"
             android:title="Codelock" />
@@ -13,7 +17,7 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Colors and style" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_reminder"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Reminder" />
         <item
